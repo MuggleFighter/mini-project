@@ -1,14 +1,8 @@
-```
-## 标题
-预览地址
-## 懒加载原理
-## 瀑布流原理
-## 实现原理
-```
 
-## sinanews
 
-预览地址：
+##sinanews
+
+[预览地址]( https://mugglefighter.github.io/mini-project/news)
 
 ###懒加载原理
 

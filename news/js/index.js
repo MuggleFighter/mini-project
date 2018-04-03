@@ -17,7 +17,7 @@ function getNews(callback) {
 	if (isFinish) return
 	isLoading = true
 	$.ajax({
-			url: 'http://platform.sina.com.cn/slide/album_tech',
+			url: '//platform.sina.com.cn/slide/album_tech',
 			dataType: 'jsonp',
 			jsonp: 'jsoncallback',
 			data: {
