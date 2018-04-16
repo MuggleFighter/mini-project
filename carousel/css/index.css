@@ -1,0 +1,106 @@
+body {
+  font: 14px/1.5 "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  color: #fff;
+}
+
+.carousel {
+  position: relative;
+  width: 320px;
+  height: 180px;
+  overflow: hidden;
+  margin: 10% auto;
+}
+
+.carousel .img-ct{
+  position: relative;
+}
+
+.carousel .img-ct:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.carousel .img-ct > a {
+  float: left;
+  width: 320px;
+  height: 180px;
+}
+
+.carousel .img-ct > img {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.carousel .btn-group {
+  opacity: 0;
+  -webkit-transition: opacity .4s;
+  -moz-transition: opacity .4s;
+  -ms-transition: opacity .4s;
+  -o-transition: opacity .4s;
+  transition: opacity .4s;
+}
+
+.carousel:hover .btn-group {
+  opacity: 1;
+}
+
+.carousel .btn-group > i {
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .4);
+  text-align: center;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.carousel .btn-group .icon-pre {
+  left: 10px;
+}
+
+.carousel .btn-group .icon-next {
+  right: 10px;
+}
+
+.carousel .indicators {
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+
+.carousel .indicators>li {
+  display: inline-block;
+  width: 30px;
+  height: 4px;
+  border: solid 1px #fff;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.carousel .indicators>li.active {
+  background: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
