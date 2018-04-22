@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		
+		a {
+			text-decoration: none;
+			color: #666;
+		}
+
+		h3 {
+			font-weight: normal;
+			font-size: 18px;
+		}
+
+		button {
+			border: none;
+			outline: none;
+	        cursor: pointer;
+		}
+
+		.btn {
+			padding: 6px 14px;
+			border-radius: 4px;
+			color: #fff;
+		}
+
+		body {
+			font: 14px/1.5 sans-serif;
+			color: #666;
+		}
+
+		.wrap {
+			width: 700px;
+			margin: 32px auto;
+		}
+
+
+		.ct:after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		
+		.ct {
+			margin: 32px -24px 32px 0;
+		}
+
+		.item {
+			position: relative;
+			width: 220px;
+			border: solid 1px #eee;
+			padding: 12px 24px;
+			background-color: #fff;
+			float: left;
+			margin: 0 20px 20px 0;
+		}
+
+		.item .item-img {
+			display: block;
+		}
+
+		.item .item-img img {
+			width: 100%;
+			vertical-align: top;
+		}
+
+		.item .name {
+			font-size: 14px;
+		}
+
+		.item .price {
+			color: red;
+			font-size: 12px;
+			margin-top: 18px;
+		}
+
+		.item .cover {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			background: rgba(0,0,0,.6);
+			display: none;
+		}
+
+		.item .cover .delete {
+		    position: relative;
+		    top: 70%;
+		    left: 50%;
+		    transform: translateX(-50%);
+		    background: #ff5353;
+		}
+
+		.btn-group .add {
+			background: #3380ff;
+			margin-right: 16px;
+		}
+
+		.btn-group .edit {
+			background: #ff5353;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<h1 class="title">商品列表</h1>
+		<div class="ct">
+			<div class="item">
+				<a href="#" class="item-img"><img src="https://picsum.photos/200/200/?image=1" alt=""></a>
+				<h3 class="name">商品名称</h3>
+				<p class="price">￥1000</p>
+				<div class="cover">
+					<button class="btn delete">删除</button>
+				</div>
+			</div>
+			<div class="item">
+				<a href="#" class="item-img"><img src="https://picsum.photos/200/200/?image=1" alt=""></a>
+				<h3 class="name">商品名称</h3>
+				<p class="price">￥1000</p>
+				<div class="cover">
+					<button class="btn delete">删除</button>
+				</div>
+			</div>
+			<div class="item">
+				<a href="#" class="item-img"><img src="https://picsum.photos/200/200/?image=1" alt=""></a>
+				<h3 class="name">商品名称</h3>
+				<p class="price">￥1000</p>
+				<div class="cover">
+					<button class="btn delete">删除</button>
+				</div>
+			</div>
+		</div>
+		<div class="btn-group">
+			<button class="btn add">添加</button>
+			<button class="btn edit">编辑</button>
+		</div>
+	</div>
+	<script>
+		function createHtml(){
+			var randInt = Math.floor(Math.random() * 100)
+			var html = `<div class="item"> 
+						<a href="#" class="item-img"><img src="https://picsum.photos/200/200/?image=${randInt}" alt=""></a> 
+						<h3 class="name">商品名称</h3> 
+						<p class="price">￥${randInt}</p> 
+						<div class="cover"> 
+							'<button class="btn delete">删除</button>' 
+						</div> 
+					</div>`
+
+			return html
+		}
+
+
+		$('.btn-group .btn.edit').on('click',function(){
+			$('.item .cover').fadeToggle()
+		})
+
+		$('.ct').on('click','.delete',function(){
+			$(this).parents('.item').remove()
+		})
+
+		$('.btn-group .add').on('click',function(){
+			for (var i = 0; i < 3; i++) {
+				var html = createHtml()
+				$(html).appendTo('.ct').hide().fadeIn(500)
+			}
+		})
+
+	</script>
+</body>
+</html>
