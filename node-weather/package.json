@@ -1,0 +1,15 @@
+{
+  "name": "weatherforecast-china",
+  "version": "0.0.1",
+  "description": "get weather from China mainland",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["weather", "china"],
+  "author": "jetyan",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}

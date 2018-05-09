@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <title>调查问卷</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    button {
+      outline: none;
+      border: none;
+    }
+
+    h2 {
+
+    }
+
+    html, body, #app, .ct {
+      height: 100%;
+    }
+
+    body {
+      color: #333;
+      font: 1.5vh/1.5 Arial SansSerif;
+
+    }
+
+    #app {
+      overflow: hidden;
+    }
+
+    .ct {
+      display: flex;
+      position: relative;
+      left: 0;
+      transition: left .4s;
+    }
+
+    .page {
+      flex: 1;
+      height: 100%;
+    }
+
+    .page .title {
+      margin-bottom: 1vh;
+    }
+
+    .page .msg {
+      color: #ff3f5b;
+      font-size: 1.6vh;
+      height: 2vh;
+    }
+
+    .page .question {
+      height: calc(100% - 5vh);
+      padding: 3vh;
+    }
+
+    .page .question label {
+      display: block;
+      cursor: pointer;
+      margin: 2vh;
+    }
+
+    .page .question input {
+      padding-right: 1vh;
+      vertical-align: middle;
+    }
+
+    .page .question textarea {
+      width: 100%;
+    }
+
+    .page .panel {
+      display: flex;
+      height: 5vh;
+    }
+
+    .page .panel button {
+      flex: 1;
+    }
+
+    .page .panel .next,
+    .page .panel .submit
+    {
+      color: #fff;
+      background: #0b72ff;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="ct" :style="calcWidth">
+    <template v-for="(question, index) in questions">
+      <div class="page">
+        <div class="question">
+          <h2 class="title">{{index + 1}}. {{question.title}}</h2>
+          <p class="msg">{{values[index].msg}}</p>
+          <template v-if="question.type === 'radio' || question.type === 'checkbox'">
+            <div class="selection">
+              <div class="field" v-for="option in question.selection">
+                <!--这里不要用对象语法: 换句话说,不能让被绑定values是对象,必须是数组-->
+                <label :for="option"><input :type="question.type"
+                                            :id="option"
+                                            v-model="values[index].value"
+                                            :value="option">{{option}}</label>
+              </div>
+            </div>
+          </template>
+          <template v-else-if="question.type === 'textarea'">
+            <textarea cols="30" rows="10" v-model="values[index].value" placeholder="请至少输入150字"></textarea>
+          </template>
+
+        </div>
+        <div class="panel">
+          <button class="next"
+                  @click="handleNext(question,index)"
+                  v-if="index !== questions.length - 1"
+          >下一步
+          </button>
+          <button class="submit" v-else>提交</button>
+          <button class="pre" v-if="index !== 0"
+            @click="handlePre"
+          >上一步</button>
+          <button class="reset" @click="handleReset(question,index)">重置</button>
+        </div>
+      </div>
+    </template>
+  </div>
+</div>
+
+
+<script>
+  let app = new Vue({
+    el: '#app',
+    data: {
+      questions: [
+        {
+          type: 'radio',
+          title: '请问你的性别是',
+          selection: ['男', '女', '保密']
+        },
+        {
+          type: 'checkbox',
+          title: '请选择你的兴趣爱好',
+          selection: ['看书', '游泳', '跑步', '看电影', '听音乐']
+        },
+        {
+          type: 'textarea',
+          title: '请介绍一下自己'
+        }
+      ],
+      values: [],//选项状态
+      move: 0//移动举例
+      // msg: ''
+    },
+    methods: {
+      handleNext(question, index) {
+        let type = question.type
+        if (this.values[index].value.length === 0) {
+          switch (true) {
+            case type === 'radio' || type === 'checkbox':
+              this.values[index].msg = '请至少选择一项'
+              break
+            case type === 'textarea':
+              this.values[index].msg = '请输入内容'
+              break
+          }
+        } else {
+          this.values[index].msg = ''
+          this.move -= index === this.questions.length - 1 ? 0 : 100
+        }
+      },
+      handleReset(question, index) {
+        if (question.type === 'radio' || question.type === 'textarea'){
+          this.values[index].value = ''
+        }else{
+          this.values[index].value = []
+        }
+      },
+      handlePre() {
+        this.move += 100
+      }
+    },
+    created() {
+      this.questions.forEach((question) => {
+        let type = question.type
+        switch (true) {
+          case type === 'radio' || type === 'textarea':
+            this.values.push({value: '', msg: ''})
+            break
+          case type === 'checkbox':
+            this.values.push({value: [], msg: ''})
+            break
+        }
+      })
+    },
+    computed: {
+      calcWidth() {
+        return {
+          width: this.questions.length * 100 + '%',
+          left: this.move + '%'
+        }
+      }
+    }
+
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "img-clip-cli",
+  "version": "0.0.1",
+  "description": "Resize images by cli",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["image","resize","clip"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "del": "^3.0.0",
+    "sharp": "^0.20.1"
+  },
+  "bin": {
+    "resize": "./main.js"
+  }
+}

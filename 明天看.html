@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="Tab 的原生 JS 实现">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Tab</title>
+  <style>
+    .tab ul,
+    .tab li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .tab {
+      border: 1px solid #ccc;
+      border-top: none;
+    }
+    
+    .tab .tab-header::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+    
+    .tab .tab-header > li {
+      float: left;
+      border: 1px solid #ccc;
+      width: calc(25% - 2px);
+      text-align: center;
+      line-height: 30px;
+      cursor: pointer;
+    } 
+    
+    .tab .tab-header > li.active {
+      background-color: #ccc;
+      color: #fff;
+    }
+    
+    .tab .tab-container > li {
+      display: none;
+      height: 100px;
+      padding: 10px;
+    }
+    
+    .tab .tab-container > li.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="tab">
+    <ul class="tab-header">
+      <li>HTML</li>
+      <li class="active">CSS</li>
+      <li>Javascript</li>
+      <li>Http</li>
+    </ul>
+    <ul class="tab-container">
+      <li>
+        <p>HTML 的内容</p>
+      </li>
+      <li class="active">
+        <p>CSS 的内容</p>
+      </li>
+      <li>
+        <p>Javascript 的内容</p>
+      </li>
+      <li>
+        <p>Http 的内容</p>
+      </li>
+    </ul>
+  </div>
+  
+  <script>
+    function $(selector) {
+      return document.querySelector(selector)
+    }
+    function $$(selector) {
+      return document.querySelectorAll(selector)
+    }
+    
+   /* 
+    
+    var tabHeaders = $$('.tab .tab-header>li')
+    var tabPanels = $$('.tab .tab-container>li')
+  
+    tabHeaders.forEach(function(tab){
+      tab.onclick = function() {
+        tabHeaders.forEach(function(node){
+          node.classList.remove('active')
+        })
+        this.classList.add('active')
+        var index = Array.prototype.indexOf.call(tabHeaders, this)
+        
+        tabPanels.forEach(function(node){
+          node.classList.remove('active')
+        })
+        tabPanels[index].classList.add('active')
+        
+        //console.log(index)
+        
+       // var index
+       // for(var i=0; i<$$('.tab .tab-header>li').length; i++) {
+       //   if($$('.tab .tab-header>li')[i] === this){
+       //     index = i
+       //   }
+       // }
+        
+      }
+    })
+    
+    */
+  
+    var app = {
+    init: function() {
+      this.tabHeaders = $$('.tab .tab-header>li')
+      this.tabPanels = $$('.tab .tab-container>li')
+      
+      this.bind()
+    },
+
+    bind: function() {
+      var me = this
+      this.tabHeaders.forEach(function(tab){
+      tab.onclick = function() {
+        me.tabHeaders.forEach(function(node){
+          node.classList.remove('active')
+        })
+        this.classList.add('active')
+        var index = Array.prototype.indexOf.call(this.tabHeaders, this)
+        
+        me.tabPanels.forEach(function(node){
+          node.classList.remove('active')
+        })
+        me.tabPanels[index].classList.add('active')
+        
+        //console.log(index)
+        
+       // var index
+       // for(var i=0; i<$$('.tab .tab-header>li').length; i++) {
+       //   if($$('.tab .tab-header>li')[i] === this){
+       //     index = i
+       //   }
+       // }
+        
+      }
+    })
+  
+    }
+  }
+
+  app.init()
+
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>模态框</title>
+</head>
+<body>
+  <button id="login" class="login modal-target">登录</button>
+  <button id="register" class="register modal-target">注册</button>
+  <button id="logout" class="logout modal-target"> 注销</button>
+  
+  <div class="modal" data-target="login">
+    <div class="container">
+      <div class="header">
+        我是标题
+        <span class="close">X</span>
+      </div>
+      <div class="content">
+        <p> 我是内容</p>
+        <p> 我是内容</p>
+      </div>
+      <div class="footer">
+        <a href="#" class="btn">确定</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal" data-target="register">
+    <div class="container">
+      <div class="header">
+        我是标题
+        <span class="close">X</span>
+      </div>
+      <div class="content">
+        <p> 我是注册</p>
+        <p> 我是注册</p>
+      </div>
+      <div class="footer">
+        <a href="#" class="btn">确定</a>
+      </div>
+    </div>
+  </div>
+  <div class="modal" data-target="logout">
+    <div class="container">
+      <div class="header">
+        我是标题
+        <span class="close">X</span>
+      </div>
+      <div class="content">
+        <p> 我是注销</p>
+        <p> 我是注册</p>
+      </div>
+      <div class="footer">
+        <a href="#" class="btn">确定</a>
+      </div>
+    </div>
+  </div>
+<script>
+  function $(selector){
+  return document.querySelector(selector)
+}
+function $$(selector){
+  return document.querySelectorAll(selector)
+}
+
+
+// $('.login').onclick = function(){
+//   $('.modal[data-target=login]').classList.add('show')
+// }
+
+// $('.register').onclick = function(){
+//   $('.modal[data-target=register]').classList.add('show')
+// }
+
+$$('.modal-target').forEach(target=>{
+ target.onclick = function(){
+  $(`.modal[data-target=${ this.id}]`).classList.add('show')
+  } 
+})
+
+
+
+
+$$('.modal').forEach(modal=>{
+  modal.querySelector('.close').onclick = function() {
+    modal.classList.remove('show')
+  }
+ modal.querySelector('.footer .btn').onclick = function() {
+    modal.classList.remove('show')
+  }
+})
+</script>
+</body>
+</html>
+
+function sum(a) {
+ sum.arr = []
+  if (arguments.length === 0){
+    return sum.arr.reduce(function(a,b){
+    return a + b
+},0)
+  }else{
+ 
+  sum.arr.push(a)
+    return function(a){
+    console.log(sum.arr)
+      sum.arr.push(a)
+      return arguments.callee
+    }
+  }
+}
