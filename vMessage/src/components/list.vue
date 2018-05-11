@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-if="list.length">
-      <div class="list-item" v-for="(item, index) in list">
+      <div class="list-item" v-for="(item, index) in list"  :class="{insert: item.isNew }">
         <div>
           <div class="list-username">{{item.username}}</div>
           <div class="list-message">{{item.message}}</div>
@@ -40,12 +40,14 @@
 
 <style scoped lang="scss">
   .list-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     border-bottom: solid 1px #ddd;
     padding: 2vh;
     opacity: .7;
     transition: opacity .4s;
+    /*animation: insert .4s;*/
 
     &:hover {
       opacity: 1;
@@ -54,10 +56,11 @@
     & > div:first-child {
       display: flex;
       .list-username {
-        flex: 1.5;
+        flex: 1.8;
+        font-size: 12px;
       }
       .list-message {
-        flex: 8.5;
+        flex: 8.2;
       }
     }
 
@@ -77,6 +80,26 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  .insert {
+    animation: insert .4s;
+  }
+
+  @keyframes insert {
+    0%{
+      left: 100%;
+    }
+    50% {
+      left: 0;
+    }
+
+    70% {
+      left: 10%;
+    }
+    100% {
+      left: 0;
+    }
   }
 
 </style>

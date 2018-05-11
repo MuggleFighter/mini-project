@@ -40,7 +40,7 @@
             username: '小刚',
             message: '看视频'
           }
-        ]
+        ],
       }
     },
     methods: {
@@ -48,7 +48,9 @@
         if(!this.username || !this.message) return
         let username = this.username
         let message = this.message
-        this.list.push({username,message})
+        let isNew = true
+        this.isNew = true
+        this.list.push({username,message,isNew})
         this.message = ''
       },
       handleReply(username){
